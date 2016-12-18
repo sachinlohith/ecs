@@ -1,0 +1,13 @@
+start 10
+status
+pickup 1 10
+pickup 2 10
+status
+pickup 10 5
+pickup 7 10
+pickup 8 5
+status
+pickup 6 10
+pickup 1 10
+pickup 1 10
+status
