@@ -23,4 +23,4 @@
 - Run through
 ```bash
 $ python setup.py commands
-`
+```
