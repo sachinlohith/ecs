@@ -40,6 +40,7 @@ class Elevator(object):
         self.goal_floor_nos = []
 
     def set_goal_floor(self, goal_floor_no):
+        # pylint: disable=R0912
         '''
         Update the floor to which elevator must get in the list of goal floors
 
@@ -81,6 +82,7 @@ class Elevator(object):
         else:
             print str(self.get_state()) + str(self.direction)
             raise ElevatorException("Invalid Goal Floor number requested.")
+    # pylint: disable=R0912
 
     def update_floor(self):
         '''

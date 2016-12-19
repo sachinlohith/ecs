@@ -4,7 +4,6 @@ Version 1.0, uses nearest elevator first algorithm
 '''
 
 import time
-import curses
 from src.elevator import Elevator, DIRECTION
 from src.elevator_exception import ElevatorException
 
@@ -24,7 +23,6 @@ class ECS(object):
         pickup_queue    Queue logging pickup requests as they are requested
         max_elevators   Maximum number of elevators present in the system
     '''
-
     def __init__(self, max_elevators=1):
         self.elevators = [None]
         self.pickup_queue = []
@@ -42,7 +40,6 @@ class ECS(object):
         Returns:
             [(int, int, int)] : [(elevator_id, floor_no, goal_floor_nos) ... ]
         '''
-
         _status = []
         for elevator in self.elevators[1:]:
             _status.append(elevator.get_state())
@@ -53,7 +50,6 @@ class ECS(object):
         '''
         Move the elevators one floor at a time
         '''
-
         status = self.status()
         for elevator in self.elevators[1:]:
             elevator.update_floor()
@@ -70,12 +66,12 @@ class ECS(object):
             floor_no (int)      : current floor number of user
             goal_floor_no (int) : floor the user must get to
         '''
-
         self.pickup_queue.append((floor_no, goal_floor_no))
         if self._schedule():
             return True
 
     def _schedule(self):
+        # pylint: disable=R0912
         '''
         Scheduling algorithm for the elevators
 
@@ -84,8 +80,8 @@ class ECS(object):
         _status = self.status()
         _scheduled_requests = []
         print "Pickup Queue: ",
-        for x in self.pickup_queue:
-            print "from " + str(x[0]) + " to " + str(x[1]),
+        for request in self.pickup_queue:
+            print "from " + str(request[0]) + " to " + str(request[1]),
         print ""
         for request in self.pickup_queue:
             floor_no, goal_floor_no = request
@@ -144,7 +140,6 @@ class ECS(object):
             _scheduled_requests : all scheduled requests as (floor_no,
                                   goal_floor_no)
         '''
-
         self.pickup_queue = list(set(self.pickup_queue)^set(_scheduled_requests))
 
 
@@ -155,7 +150,6 @@ def print_elevators(ecs):
     Args:
         ecs : Elevator control system to be printed
     '''
-
     # Only prints elevators that are not on hold
     status = ecs.status()
     print '-'*100
@@ -168,6 +162,7 @@ def print_elevators(ecs):
                                              str(elevator[2]))
             print '|'
     print '-'*100
+    # pylint: disable=R0912
 
 def step(file_name):
     '''
@@ -205,7 +200,6 @@ def step(file_name):
     Args:
         file_name : file name containing the list of commands to be executed
     '''
-
     import re
     start_command = re.compile(r'^start\s\d+$')
     status_command = re.compile(r'^status$')
