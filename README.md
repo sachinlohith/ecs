@@ -57,3 +57,4 @@ def step(ecs):
 ## Drawbacks
 - The elevator control system does not consider the capacity of the elevator when processing a new pickup request.
 - Theoritically, there is a possibility of starvation in the system. To see this, consider a building with one elevator and infinite floors. The first person that gets in, goes up and the elevator keeps getting a pickup request for further up top. In such a case, a request from a lower floor will be waiting in the system's queue and will never be assigned to an elevator.
+- Dynamic reconfiguration of elevators and the pickup queue. Suppose an elevator is not considered as nearest at some point for a certain pickup request at that point in time. Since it's moving, a few seconds later it's nearer than the one that was scheduled for the pickup of that request. 
