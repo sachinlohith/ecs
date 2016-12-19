@@ -11,5 +11,23 @@
     * status
     * pickup floor_no goal_floor_no
 * Example
+
+   > start 10
+   
    > status
+   
+   > pickup 1 10
+   
+   > pickup 1 9
+   
+   > status
+   
+   > status
+   
+   > pickup 10 3
+   
+   > pickup 7 9
+   
+   > status
+
 * Run through `$ python setup.py commands`
