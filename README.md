@@ -31,3 +31,7 @@
    > status
 
 * Run through `$ python setup.py commands`
+
+## Drawbacks
+- The system does not factor in the capacity of the elevators while assigning a new request.
+- Theoritically, there is a possibility of starvation in the system. To se this, consider a building with one elevator and infinite floors. The first person that gets in, goes up and the elevator keeps getting a pickup request for further up top. In such a case, a request from a lower floor will keep waiting in the system's queue and will never be assigned to an elevator.
