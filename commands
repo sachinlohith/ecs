@@ -1,13 +1,47 @@
 start 10
 status
 pickup 1 10
+step
+step
 pickup 2 10
-status
+step
+step
+step
+step
+step
+step
 pickup 10 5
-pickup 7 10
+step
 pickup 8 5
+step
+step
+step
+step
+pickup 7 10
+step
+step
+step
+step
+step
 status
 pickup 6 10
+step
+step
+step
+step
+step
+step
+step
+step
 pickup 1 10
-pickup 1 10
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
 status
