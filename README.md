@@ -20,7 +20,4 @@
     pickup 10 3
     pickup 7 9
     status`
-- Run through
-```bash
-$ python setup.py commands
-```
+- Run through `$ python setup.py commands`
