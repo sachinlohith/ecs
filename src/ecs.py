@@ -50,9 +50,13 @@ class ECS(object):
         '''
         Move the elevators one floor at a time
         '''
+        status = self.status()
         for elevator in self.elevators[1:]:
             elevator.update_floor()
-        return self._schedule()
+        self._schedule()
+        status1 = self.status()
+        if status != status1:
+            return True
 
 
     def pickup(self, floor_no, goal_floor_no):
