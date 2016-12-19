@@ -113,21 +113,6 @@ class Elevator(object):
         else:
             raise ElevatorException("Invalid direction of elevators detected")
 
-    def _process_goal_floors(self):
-        '''
-        Private function to heapify the goal_floor_nos
-        according to the direction the elevator is headed
-        '''
-
-        if self.direction == DIRECTION.HOLD:
-            pass
-        elif self.direction == DIRECTION.UP:
-            heapq.heapify(self.goal_floor_nos)
-        elif self.direction == DIRECTION.DOWN:
-            heapq_max.heapify_max(self.goal_floor_nos)
-        else:
-            raise ElevatorException("Invalid direction of elevators detected")
-
     def get_state(self):
         '''
         Function to identify the state of an elevator

@@ -54,6 +54,7 @@ class ECS(object):
         for elevator in self.elevators[1:]:
             elevator.update_floor()
         status1 = self.status()
+        # If there is a change in status of elevators
         if status != status1:
             return True
 
@@ -100,6 +101,10 @@ class ECS(object):
                 if _downward_elevators != []:
                     _nearest_elevator = min(_downward_elevators, key=lambda x: x[1])[0]
                     self.elevators[_nearest_elevator].set_goal_floor(floor_no)
+                    # If an elevator residing at a lower floor must come up first
+                    # to the requested pickup floor and then move up to the goal floor
+                    # ==> add the request again so the request can be served after
+                    # the elevator has reached the request floor
                     if self.elevators[_nearest_elevator].direction == DIRECTION.UP:
                         self.pickup_queue.append((floor_no, goal_floor_no))
                     else:
@@ -119,6 +124,10 @@ class ECS(object):
                 if _upward_elevators != []:
                     _nearest_elevator = min(_upward_elevators, key=lambda x: x[1])[0]
                     self.elevators[_nearest_elevator].set_goal_floor(floor_no)
+                    # If an elevator residing at a higher floor must come down first
+                    # to the requested pickup floor and then move up to the goal floor
+                    # ==> add the request again so the request can be served after
+                    # the elevator has reached the request floor
                     if self.elevators[_nearest_elevator].direction == DIRECTION.DOWN:
                         self.pickup_queue.append((floor_no, goal_floor_no))
                     else:
@@ -201,6 +210,7 @@ def step(file_name):
         file_name : file name containing the list of commands to be executed
     '''
     import re
+    # Possible commands
     start_command = re.compile(r'^start\s\d+$')
     status_command = re.compile(r'^status$')
     pickup_command = re.compile(r'^pickup\s\d+\s\d+$')
@@ -218,18 +228,22 @@ def step(file_name):
 
         # Ensure number of elevators are within the system limit
         assert max_elevators <= 16 and max_elevators >= 1
+        # create the elevator control system
         ecs = ECS(max_elevators)
         print_elevators(ecs)
         for command in commands[1:]:
             print command
             command = command.strip()
             if status_command.match(command):
+                # Until there are changes to elevator status
+                # i.e, the elevators are moving, print their statuses
                 while ecs.update_elevators():
                     time.sleep(3)
                     print_elevators(ecs)
             elif pickup_command.match(command):
                 floor_no, goal_floor_no = map(int, command.split()[1:])
                 assert floor_no >= 1 and goal_floor_no >= 1
+                # Add the request to the pickup queue and process
                 ecs.pickup(floor_no, goal_floor_no)
                 print_elevators(ecs)
             else:
